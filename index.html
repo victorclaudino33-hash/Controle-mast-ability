@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Controle de Exames · Ability</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- TELA DE LOGIN -->
+  <div id="tela-login" class="tela-login">
+    <div class="login-caixa">
+      <div class="login-marca">
+        <span class="login-marca-barra"></span>
+        <div>
+          <p class="login-marca-nome">Ability</p>
+          <p class="login-marca-sub">Controle de Exames Ocupacionais</p>
+        </div>
+      </div>
+      <form id="form-login" class="login-form">
+        <label>
+          E-mail
+          <input type="email" id="login-email" required autocomplete="username" />
+        </label>
+        <label>
+          Senha
+          <input type="password" id="login-senha" required autocomplete="current-password" />
+        </label>
+        <button type="submit" class="botao botao-principal">Entrar</button>
+        <p id="login-erro" class="login-erro" hidden></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app" class="app" hidden>
+
+    <header class="topo">
+      <div class="topo-marca">
+        <span class="topo-marca-barra"></span>
+        <span class="topo-marca-nome">Controle de Exames</span>
+      </div>
+      <div class="topo-usuario">
+        <span id="topo-base-atual" class="badge-base"></span>
+        <button id="botao-sair" class="botao botao-texto">Sair</button>
+      </div>
+    </header>
+
+    <div class="corpo">
+      <nav class="nav-lateral">
+        <button class="nav-item ativo" data-tela="registro">Novo registro</button>
+        <button class="nav-item" data-tela="lista">Lançamentos</button>
+        <button class="nav-item" data-tela="indicadores">Indicadores</button>
+        <button class="nav-item" data-tela="parametros" id="nav-parametros" hidden>Parâmetros</button>
+      </nav>
+
+      <main class="conteudo">
+
+        <!-- NOVO REGISTRO -->
+        <section id="tela-registro" class="painel">
+          <div class="painel-cabecalho">
+            <h1 id="registro-titulo">Novo registro</h1>
+            <button id="registro-cancelar-edicao" class="botao botao-texto" hidden>Cancelar edição</button>
+          </div>
+          <form id="form-registro" class="grade-form">
+            <label class="campo-2">
+              Colaborador
+              <input type="text" id="f-colaborador" required />
+            </label>
+            <label>
+              CPF
+              <input type="text" id="f-cpf" placeholder="000.000.000-00" required />
+            </label>
+            <label>
+              Base
+              <select id="f-base" required></select>
+            </label>
+            <label>
+              Tipo de exame
+              <select id="f-tipo" required>
+                <option value="">Selecione</option>
+                <option>Admissional</option>
+                <option>Retorno ao trabalho</option>
+                <option>Periódico</option>
+                <option>Mudança de função</option>
+                <option>Demissional</option>
+                <option>Outro</option>
+              </select>
+            </label>
+            <label>
+              Data da solicitação
+              <input type="date" id="f-solicitacao" required />
+            </label>
+            <label>
+              Data da confirmação do agendamento
+              <input type="date" id="f-confirmacao" />
+            </label>
+            <label>
+              Data de saída do ASO
+              <input type="date" id="f-aso" />
+            </label>
+            <label class="campo-2">
+              Observação
+              <input type="text" id="f-obs" />
+            </label>
+            <div class="campo-2 acoes-form">
+              <button type="submit" class="botao botao-principal">Salvar registro</button>
+              <p id="registro-msg" class="mensagem" hidden></p>
+            </div>
+          </form>
+        </section>
+
+        <!-- LANÇAMENTOS -->
+        <section id="tela-lista" class="painel" hidden>
+          <div class="painel-cabecalho">
+            <h1>Lançamentos</h1>
+            <div class="lista-filtros">
+              <select id="filtro-base" hidden></select>
+              <input type="text" id="filtro-busca" placeholder="Buscar por nome ou CPF" />
+            </div>
+          </div>
+          <div class="tabela-scroll">
+            <table class="tabela" id="tabela-lista">
+              <thead>
+                <tr>
+                  <th>Colaborador</th>
+                  <th>CPF</th>
+                  <th class="col-base" hidden>Base</th>
+                  <th>Tipo</th>
+                  <th>Solicitação</th>
+                  <th>Confirmação</th>
+                  <th>ASO</th>
+                  <th>Até confirmação</th>
+                  <th>Confirmação → ASO</th>
+                  <th>Total</th>
+                  <th>Situação</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="tabela-lista-corpo"></tbody>
+            </table>
+          </div>
+          <p id="lista-vazio" class="estado-vazio" hidden>Nenhum registro lançado ainda. Use "Novo registro" para começar.</p>
+        </section>
+
+        <!-- INDICADORES -->
+        <section id="tela-indicadores" class="painel" hidden>
+          <div class="painel-cabecalho">
+            <h1>Indicadores</h1>
+            <select id="ind-base" hidden></select>
+          </div>
+
+          <div class="cartoes-metricas" id="ind-cartoes"></div>
+
+          <div class="bloco-indicador">
+            <h2>Tempo médio por mês</h2>
+            <div id="ind-grafico-mensal" class="grafico-barras"></div>
+          </div>
+
+          <div class="bloco-indicador" id="ind-bloco-bases" hidden>
+            <h2>Comparativo entre bases</h2>
+            <div class="tabela-scroll">
+              <table class="tabela" id="ind-tabela-bases">
+                <thead>
+                  <tr>
+                    <th>Base</th>
+                    <th>Solicitações</th>
+                    <th>Média até confirmação</th>
+                    <th>Média confirmação → ASO</th>
+                    <th>Média total</th>
+                    <th>% total no prazo</th>
+                    <th>Sem ASO</th>
+                  </tr>
+                </thead>
+                <tbody id="ind-tabela-bases-corpo"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- PARÂMETROS (admin) -->
+        <section id="tela-parametros" class="painel" hidden>
+          <div class="painel-cabecalho">
+            <h1>Parâmetros</h1>
+          </div>
+          <form id="form-parametros" class="grade-form">
+            <label>
+              Meta: solicitação → confirmação do agendamento (dias)
+              <input type="number" min="0" id="p-meta1" required />
+            </label>
+            <label>
+              Meta: confirmação → saída do ASO (dias)
+              <input type="number" min="0" id="p-meta2" required />
+            </label>
+            <label class="campo-2" style="color:var(--cinza);font-size:0.8rem;">
+              Total (calculado automaticamente): <strong id="p-total-calc">—</strong> dias
+            </label>
+            <label>
+              Forma de contagem
+              <select id="p-modo">
+                <option value="uteis">Dias úteis</option>
+                <option value="corridos">Dias corridos</option>
+              </select>
+            </label>
+            <label class="campo-2">
+              Feriados (uma data por linha, AAAA-MM-DD)
+              <textarea id="p-feriados" rows="8"></textarea>
+            </label>
+            <div class="campo-2 acoes-form">
+              <button type="submit" class="botao botao-principal">Salvar parâmetros</button>
+              <p id="parametros-msg" class="mensagem" hidden></p>
+            </div>
+          </form>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
