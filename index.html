@@ -4,32 +4,40 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Controle de Exames · Ability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <!-- TELA DE LOGIN -->
   <div id="tela-login" class="tela-login">
-    <div class="login-caixa">
-      <div class="login-marca">
+    <div class="login-lado-marca">
+      <div>
         <span class="login-marca-barra"></span>
-        <div>
-          <p class="login-marca-nome">Ability</p>
-          <p class="login-marca-sub">Controle de Exames Ocupacionais</p>
-        </div>
+        <p class="login-marca-nome">Ability</p>
+        <h1 class="login-marca-titulo">Controle de<br />Exames Ocupacionais</h1>
+        <p class="login-marca-desc">Solicitação, confirmação do agendamento e saída do ASO — acompanhados por base, em um só lugar.</p>
       </div>
-      <form id="form-login" class="login-form">
-        <label>
-          E-mail
-          <input type="email" id="login-email" required autocomplete="username" />
-        </label>
-        <label>
-          Senha
-          <input type="password" id="login-senha" required autocomplete="current-password" />
-        </label>
-        <button type="submit" class="botao botao-principal">Entrar</button>
-        <p id="login-erro" class="login-erro" hidden></p>
-      </form>
+      <p class="login-marca-rodape">Segurança do Trabalho</p>
+    </div>
+    <div class="login-lado-form">
+      <div class="login-caixa">
+        <p class="login-form-titulo">Entrar</p>
+        <form id="form-login" class="login-form">
+          <label>
+            E-mail
+            <input type="email" id="login-email" required autocomplete="username" />
+          </label>
+          <label>
+            Senha
+            <input type="password" id="login-senha" required autocomplete="current-password" />
+          </label>
+          <button type="submit" class="botao botao-principal">Entrar</button>
+          <p id="login-erro" class="login-erro" hidden></p>
+        </form>
+      </div>
     </div>
   </div>
 
